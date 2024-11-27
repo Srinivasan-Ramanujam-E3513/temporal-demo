@@ -1,0 +1,58 @@
+buildscript {
+    ext {
+        //springBootVersion = '2.0.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.9"
+    }
+}
+
+
+plugins {
+    //id("net.ltgt.errorprone") version "2.3.3"
+    id 'java'
+    id 'org.springframework.boot' version '2.5.12'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2"
+    }
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "io.temporal:temporal-spring-boot-starter-alpha:$temporalSBStarterVersion"
+    implementation "javax.validation:validation-api"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+    annotationProcessor("org.projectlombok:lombok:1.18.8")
+    compileOnly('org.projectlombok:lombok')
+
+    //errorproneJavac('com.google.errorprone:javac:9+181-r4173-1')
+    //errorprone('com.google.errorprone:error_prone_core:2.22.0')
+
+}
+
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = true
+}
